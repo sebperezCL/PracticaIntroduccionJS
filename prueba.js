@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 "use strict"
 
 function covierteNumero(valor){
@@ -17,7 +18,6 @@ function covierteNumero(valor){
 function convierteRomano(valor){
     //console.log(`El valor ${valor} es string`)
 }
-
 
 //Comienzo la lectura del archivo input.txt, donde vienen todos los valores a convertir
 const fs = require('fs')
