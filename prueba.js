@@ -7,7 +7,6 @@ function covierteNumero(valor){
     }
     let resultado = []
     let sValor = valor.toString()
-    console.log(sValor)
     
     /*Array en dos dimensiones con las equivalencias entre cifras arábicas y números romanos
     Nota: No encontré una solución más elegante :S */
@@ -16,16 +15,19 @@ function covierteNumero(valor){
 
     //Con este ciclo recorremos el número entregado cifra por cifra, buscando en el array el equivalente en romano
     for(let i=0, largo=sValor.length; i < largo; i++){
-        console.log(sValor.charAt(i))
         //Nota: Esto sólo funcionará para el rango indicado en el ejercicio (número de 4 cifras)
         resultado[i] = tabla[4-(largo-i)][parseInt(sValor.charAt(i))]
     }
     console.log(resultado)
-    return resultado
+    return resultado.join('')
 }
 
 function convierteRomano(valor){
     //console.log(`El valor ${valor} es string`)
+}
+
+function validarRomano(valor){
+    let tabla = [[1,'I'],[5,'V'],[10,'XX'],[50,'L'],[100,'C'],[]]
 }
 
 //Comienzo la lectura del archivo input.txt, donde vienen todos los valores a convertir
@@ -43,4 +45,4 @@ for (let i = 0; i < data.length; i++) {
     }
   }  
 
-console.log(resultado)
+//console.log(resultado)
