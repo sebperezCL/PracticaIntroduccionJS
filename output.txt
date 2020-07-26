@@ -1,0 +1,15 @@
+No es romano, contiene caracteres inválidos
+No es romano válido aparece M más de 3 veces
+1309
+No es romano válido aparece D después de haber evaluado 9
+No es romano válido aparece X a la izquierda de D
+1900
+3000
+No es romano válido aparece X después de haber evaluado 9
+No es romano válido aparece D después de haber evaluado 90
+90
+No es romano válido aparece X a la izquierda de M
+2000
+106
+2016
+No es un número romano válido

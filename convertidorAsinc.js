@@ -1,4 +1,4 @@
-/*EJERCICIO DE PRÁCTICA CON LECTURA SÍNCRONA
+/*EJERCICIO DE PRÁCTICA CON LECTURA ASÍNCRONA
 Los valores se leen del archivo input.txt donde deben venir n valores, 1 por cada línea del archivo*/
 
 /* eslint-disable no-unused-vars */
@@ -103,26 +103,43 @@ function validarRomano(valor){
     return tabla.find(item => {return item.romano == valor })
 }
 
-//Comienzo la lectura del archivo input.txt, donde vienen todos los valores a convertir
-const fs = require('fs')
+//Función llamada en el callback del proceso asíncrono
+function proceso(data){
+    let resultado = []
+    let strResultado, conversion
+    strResultado = ''
+    data = data.split('\r\n')
+    for (let i = 0; i < data.length; i++) {
+        if(parseInt(data[i])){
+            //Si es número entonces convierte número en romano
+            conversion = covierteNumero(data[i])
+            resultado[i] = [data[i],conversion]
+            strResultado += conversion + '\n'
+        } else{
+            //Si no es número entonces envía la cadena en mayúsculas para validar y convertir en número si corresponde
+            conversion = convierteRomano(data[i].toUpperCase())
+            resultado[i] = [data[i],conversion]
+            strResultado += conversion + '\n'
+        }
+    }  
+    console.table(resultado)
 
-//Leo la información y la transformo en un array con los valores de cada línea
-const data = fs.readFileSync('input.txt', 'utf-8').split('\r\n')
-let resultado = []
-let strResultado, conversion
-strResultado = ''
-for (let i = 0; i < data.length; i++) {
-    if(parseInt(data[i])){
-        //Si es número entonces convierte número en romano
-        conversion = covierteNumero(data[i])
-        resultado[i] = [data[i],conversion]
-        strResultado += conversion + '\n'
-    } else{
-        //Si no es número entonces envía la cadena en mayúsculas para validar y convertir en número si corresponde
-        conversion = convierteRomano(data[i].toUpperCase())
-        resultado[i] = [data[i],conversion]
-        strResultado += conversion + '\n'
-    }
-  }  
-fs.writeFileSync("output.txt", strResultado)
-console.table(resultado)
+    //Se escribe en el archivo output.txt el resultado de las evaluaciones
+    fs.writeFile("output.txt", strResultado,(error) => {
+            if (error) throw error
+            console.log('El archivo se ha grabado')})
+
+    return strResultado
+}
+
+const fs = require('fs')
+const { setImmediate } = require('timers')
+
+console.log('Leyendo archivo asíncrono')
+let strResultado
+
+//Comienzo la lectura del archivo input.txt, donde vienen todos los valores a convertir (un valor por cada línea)
+fs.readFile('input.txt', 'utf-8', (error, datos) => {
+    strResultado = proceso(datos)
+    if (error) throw error    
+  })
